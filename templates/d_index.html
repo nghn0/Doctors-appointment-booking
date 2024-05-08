@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Docotors Available</h1>
+    <table border="2">
+        <tr>
+            <th>Doctor Name</th>
+            <th>Specialization</th>
+            <th>Hospital</th>
+        </tr>
+        {% for i in doctors %}
+            <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+            </tr>
+        {% endfor %}
+
+
+    </table><br>
+    <form action="/add_doc" method="post">
+        <label>Doctor Name: <input type="text" name="dname" required></label><br>
+        <label>Specialization: <input type="text" name="spec" required></label><br>
+        <label>Hospital Name: <input type="text" name="hname" required></label><br>
+        <input type="submit" value="Add">
+
+
+    </form>
+
+    <h1>Doctors booked</h1>
+    <table border="1">
+        <tr>
+            <th>Doctor Name</th>
+            <th>Patient Name</th>
+            <th>Contact(Patient)</th>
+            <th>Hospital</th>
+            <th>Timings</th>
+        </tr>
+        {% for i in booked_doc %}
+            <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+                <td>{{ i[4] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Book Doctors</h1>
+    <form action="/book_doc" method="post">
+        <label>Patient Name: <input type="text" name="pname" required></label><br>
+        <label>Patient Contact Number: <input type="number" name="contact" required></label><br>
+        <label>Doctors: </label>
+        <select id="docs" name="docs" required>
+            {% for i in doctors %}
+                <option value="{{ i[0] }}">{{ i[0] }}</option>
+            {% endfor %}
+        </select><br>
+        <label>Slots Available: </label>
+        <select id="slot" name="slot" required>
+            <option value="0900">0900</option>
+            <option value="1300">1300</option>
+            <option value="1700">1700</option>
+        </select><br>
+        <input type="submit" value="Book">
+    </form>
+
+</body>
+</html>
